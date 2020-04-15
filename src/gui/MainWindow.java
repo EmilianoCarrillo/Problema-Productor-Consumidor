@@ -86,9 +86,9 @@ public class MainWindow {
 		btn_parar.setBounds(386, 76, 141, 47);
 		frame.getContentPane().add(btn_parar);
 		
-		Canvas canvas = new Canvas();
-		canvas.setBackground(Color.LIGHT_GRAY);
-		canvas.setBounds(19, 152, 508, 411);
+		Canvas canvas = new MyCanvas();
+		canvas.setBackground(Color.white);
+		canvas.setBounds(19, 152, 500, 410);
 		frame.getContentPane().add(canvas);
 	}
 }
