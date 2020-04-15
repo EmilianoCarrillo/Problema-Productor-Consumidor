@@ -5,9 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class MyCanvas extends Canvas {
-	
-	boolean semaforoConsumidorEncendido;
-	boolean semaforoProductorEncendido;
+
 	
 	// Colores
 	Color myWhite = new Color(237, 240, 241);
@@ -17,10 +15,17 @@ public class MyCanvas extends Canvas {
 	Color myBlack = new Color(47, 62, 79);
 	Color myLightBlack = new Color(56, 73, 92);
 	
-	public MyCanvas(){
-		semaforoConsumidorEncendido = false;
-		semaforoConsumidorEncendido = false;
-	}
+	//Args
+	public boolean productorActivo = false;
+	public boolean consumidorActivo = false;
+	public boolean globalActivo = false;
+	public boolean cableProductorActivo = false;
+	public boolean cableConsumidorActivo = false;
+	public boolean slotProductorActivo = false;
+	public boolean slotConsumidorActivo = false;
+	public int capacidadBuffer = 10;
+	public int nProductosBuffer = 0;
+	
 	
 	@Override
 	public void paint(Graphics g) {
@@ -30,15 +35,17 @@ public class MyCanvas extends Canvas {
 		g.drawString("Consumidor", 341, 31);
 		g.drawString("Buffer", 233, 250);
 		
-		dibujarSemaforo(g, 178, 69, false);
-		dibujarSemaforo(g, 294, 69, true);
-		dibujarSemaforo(g, 236, 323, true);
+		dibujarSemaforoProductor(g, productorActivo);
+		dibujarSemaforoConsumidor(g, consumidorActivo);
+		dibujarSemaforoGlobal(g, globalActivo);
 		
-		dibujarSlot(g, 78, 50, true);
-		dibujarSlot(g, 327, 50, false);
+		dibujarSlotConsumidor(g, slotConsumidorActivo);
+		dibujarSlotProductor(g, slotProductorActivo);
 		
-		dibujarCableIzquierdo(g, false);
-		dibujarCableDerecho(g, true);
+		dibujarCableIzquierdo(g, cableProductorActivo);
+		dibujarCableDerecho(g, cableConsumidorActivo);
+		
+		dibujarBuffer(g, capacidadBuffer, nProductosBuffer);
 		
 	}
 	
@@ -52,14 +59,33 @@ public class MyCanvas extends Canvas {
 		g.fillOval(x+4, y+6, w-8, w-8);
 		g.setColor(encendido ? myGreen : myLightBlack);
 		g.fillOval(x+4, y+31, w-8, w-8);
-		
-		dibujarBuffer(g, 10, 3);
 	}
+	
+	public void dibujarSemaforoProductor(Graphics g, boolean encendido) {
+		dibujarSemaforo(g, 178, 69, encendido);
+	}
+	
+	public void dibujarSemaforoConsumidor(Graphics g, boolean encendido) {
+		dibujarSemaforo(g, 294, 69, encendido);
+	}
+	
+	public void dibujarSemaforoGlobal(Graphics g, boolean encendido) {
+		dibujarSemaforo(g, 236, 323, encendido);
+	}
+	
 	
 	public void dibujarSlot(Graphics g, int x, int y, boolean activo) {
 		int w = 94, h = w;
 		g.setColor(activo ? myPurple : myWhite);
 		g.fillRect(x, y, w, h);
+	}
+	
+	public void dibujarSlotProductor(Graphics g, boolean activo){
+		dibujarSlot(g, 78, 50, activo);
+	}
+	
+	public void dibujarSlotConsumidor(Graphics g, boolean activo){
+		dibujarSlot(g, 327, 50, activo);
 	}
 	
 	public void dibujarCableIzquierdo(Graphics g, boolean activo) {

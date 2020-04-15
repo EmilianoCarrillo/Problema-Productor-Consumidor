@@ -1,4 +1,5 @@
-class ProductorConsumidor {
+package code;
+public class ProductorConsumidor {
 	
 	public static void main(String args[]) {
 		BufferLimitado buffer = new BufferLimitado();
